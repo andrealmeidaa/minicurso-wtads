@@ -1,11 +1,22 @@
 #!/bin/bash -xe
 
-# Script de deploy para o Task Project com Nginx
-echo "=== Iniciando deploy do Task Project ==="
+# Script de deploy para o Task Project com AWS RDS e Secrets Manager
+echo "=== Iniciando deploy do Task Project na AWS ==="
+
+# Verificar se as variáveis AWS estão definidas
+if [ -z "$AWS_REGION" ]; then
+    export AWS_REGION="us-east-1"
+    echo "AWS_REGION não definido, usando padrão: us-east-1"
+fi
+
+if [ -z "$AWS_SECRET_NAME" ]; then
+    export AWS_SECRET_NAME="task-project/prod"
+    echo "AWS_SECRET_NAME não definido, usando padrão: task-project/prod"
+fi
 
 # Atualizar sistema
 apt update -y
-apt install -y nginx mysql-server python3-pip python3-venv git pkg-config libmysqlclient-dev
+apt install -y nginx python3-pip python3-venv git pkg-config libmysqlclient-dev awscli
 
 # Criar usuário www-data se não existir
 if ! id -u www-data > /dev/null 2>&1; then
@@ -36,25 +47,30 @@ source venv/bin/activate
 # Instalar dependências Python no ambiente virtual
 pip install -r requirements_simple.txt
 
-# Configurar MySQL
-systemctl start mysql
-systemctl enable mysql
-
-# Criar banco de dados e usuário
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS taskdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-mysql -u root -e "CREATE USER IF NOT EXISTS 'taskapp'@'localhost' IDENTIFIED BY 'task@123';"
-mysql -u root -e "GRANT ALL PRIVILEGES ON taskdb.* TO 'taskapp'@'localhost';"
-mysql -u root -e "FLUSH PRIVILEGES;"
-
-sed -i 's/.*bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
-systemctl enable mysql
-service mysql restart
+# Verificar conectividade com AWS Secrets Manager
+echo "Verificando acesso ao AWS Secrets Manager..."
+if aws secretsmanager describe-secret --secret-id "$AWS_SECRET_NAME" --region "$AWS_REGION" > /dev/null 2>&1; then
+    echo "✓ Acesso ao AWS Secrets Manager confirmado"
+    USE_AWS_SECRETS=True
+else
+    echo "⚠️  Aviso: Não foi possível acessar o AWS Secrets Manager"
+    echo "   Certifique-se de que:"
+    echo "   1. A instância EC2 tem uma IAM Role com permissões adequadas"
+    echo "   2. O secret '$AWS_SECRET_NAME' existe na região '$AWS_REGION'"
+    echo "   3. O secret contém as chaves: username, password, host, port, dbname, django_secret_key"
+    USE_AWS_SECRETS=False
+fi
 
 # Configurar arquivo .env
 cat > .env << EOF
-SECRET_KEY=$(venv/bin/python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
+SECRET_KEY=fallback-secret-key-$(date +%s)
 DEBUG=False
 ALLOWED_HOSTS=*
+USE_AWS_SECRETS=$USE_AWS_SECRETS
+AWS_REGION=$AWS_REGION
+AWS_SECRET_NAME=$AWS_SECRET_NAME
+
+# Fallback database config (usado apenas se AWS Secrets falhar)
 DB_NAME=taskdb
 DB_USER=taskapp
 DB_PASSWORD=task@123
@@ -63,13 +79,16 @@ DB_PORT=3306
 EOF
 
 # Executar migrações
+echo "Executando migrações do Django..."
 venv/bin/python manage.py makemigrations
 venv/bin/python manage.py migrate
 
 # Coletar arquivos estáticos
+echo "Coletando arquivos estáticos..."
 venv/bin/python manage.py collectstatic --noinput
 
 # Criar superusuário se não existir
+echo "Verificando/criando superusuário..."
 venv/bin/python manage.py shell -c "
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -104,12 +123,31 @@ systemctl restart task_project
 
 # Verificar status
 echo "=== Status dos serviços ==="
-systemctl status mysql --no-pager -l
 systemctl status task_project --no-pager -l
 systemctl status nginx --no-pager -l
 
 echo "=== Deploy concluído! ==="
-echo "Aplicação disponível em: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
-echo "Admin: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/admin"
+
+# Obter IP público da instância
+PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4 2>/dev/null || echo "localhost")
+
+echo "=== Informações de Acesso ==="
+echo "Aplicação disponível em: http://$PUBLIC_IP"
+echo "Admin disponível em: http://$PUBLIC_IP/admin"
 echo "Usuário admin: admin"
 echo "Senha admin: admin123"
+echo ""
+echo "=== Configuração AWS ==="
+echo "Região AWS: $AWS_REGION"
+echo "Secret Manager: $AWS_SECRET_NAME"
+echo "Usando AWS Secrets: $USE_AWS_SECRETS"
+echo ""
+if [ "$USE_AWS_SECRETS" = "True" ]; then
+    echo "✓ Aplicação configurada para usar AWS RDS e Secrets Manager"
+else
+    echo "⚠️  Aplicação usando configurações de fallback"
+    echo "   Para usar AWS RDS e Secrets Manager:"
+    echo "   1. Configure uma IAM Role na instância EC2"
+    echo "   2. Crie o secret no AWS Secrets Manager"
+    echo "   3. Execute o deploy novamente"
+fi

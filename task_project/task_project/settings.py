@@ -21,12 +21,27 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# AWS Configuration
+AWS_REGION = os.getenv('AWS_REGION', 'us-east-1')
+AWS_SECRET_NAME = os.getenv('AWS_SECRET_NAME', 'task-project/prod')
+USE_AWS_SECRETS = os.getenv('USE_AWS_SECRETS', 'False').lower() == 'true'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
+# Import AWS configuration if using AWS Secrets Manager
+if USE_AWS_SECRETS:
+    try:
+        import sys
+        sys.path.append(str(BASE_DIR.parent))
+        from aws_config import get_django_secret_key, get_rds_connection_info
+        
+        SECRET_KEY = get_django_secret_key(AWS_SECRET_NAME, AWS_REGION)
+        DATABASE_CONFIG = get_rds_connection_info(AWS_SECRET_NAME, AWS_REGION)
+    except Exception as e:
+        print(f"Warning: Failed to load AWS secrets, falling back to environment variables: {e}")
+        SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
+        DATABASE_CONFIG = None
+else:
+    SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
+    DATABASE_CONFIG = None
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
@@ -89,20 +104,27 @@ WSGI_APPLICATION = "task_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Configuração para MySQL
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv('DB_NAME', 'task_db'),
-        "USER": os.getenv('DB_USER', 'taskapp'),
-        "PASSWORD": os.getenv('DB_PASSWORD', 'task@123'),
-        "HOST": os.getenv('DB_HOST', 'localhost'),
-        "PORT": os.getenv('DB_PORT', '3306'),
-        "OPTIONS": {
-            'charset': 'utf8mb4',
-        },
+# Configuração do banco de dados
+if USE_AWS_SECRETS and DATABASE_CONFIG:
+    # Use AWS RDS with Secrets Manager
+    DATABASES = {
+        "default": DATABASE_CONFIG
     }
-}
+else:
+    # Fallback to environment variables (desenvolvimento ou local)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv('DB_NAME', 'taskdb'),
+            "USER": os.getenv('DB_USER', 'taskapp'),
+            "PASSWORD": os.getenv('DB_PASSWORD', 'task@123'),
+            "HOST": os.getenv('DB_HOST', 'localhost'),
+            "PORT": os.getenv('DB_PORT', '3306'),
+            "OPTIONS": {
+                'charset': 'utf8mb4',
+            },
+        }
+    }
 
 # Para usar SQLite em desenvolvimento, comente o código acima e descomente abaixo:
 # DATABASES = {

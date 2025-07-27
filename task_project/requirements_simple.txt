@@ -3,3 +3,5 @@ mysqlclient>=2.1.0
 python-dotenv>=0.19.0
 gunicorn>=20.1.0
 django-extensions
+boto3>=1.26.0
+PyMySQL>=1.0.0
