@@ -33,9 +33,10 @@ chown www-data:www-data /var/run/gunicorn
 if [ ! -d "/opt/minicurso-wtads" ]; then
     cd /opt
     git clone https://github.com/andrealmeidaa/minicurso-wtads.git
+    git switch deploy_aws_rds
 else
     cd /opt/minicurso-wtads
-    git pull origin main
+    git pull origin deploy_aws_rds || git switch deploy_aws_rds
 fi
 
 cd /opt/minicurso-wtads/task_project
