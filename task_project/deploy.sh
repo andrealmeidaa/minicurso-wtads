@@ -19,15 +19,15 @@ chown www-data:www-data /var/log/gunicorn
 chown www-data:www-data /var/run/gunicorn
 
 # Clonar ou atualizar projeto
-if [ ! -d "/home/ubuntu/minicurso-wtads" ]; then
-    cd /home/ubuntu
+if [ ! -d "/opt/minicurso-wtads" ]; then
+    cd /opt
     git clone https://github.com/andrealmeidaa/minicurso-wtads.git
 else
-    cd /home/ubuntu/minicurso-wtads
+    cd /opt/minicurso-wtads
     git pull origin main
 fi
 
-cd /home/ubuntu/minicurso-wtads/task_project
+cd /opt/minicurso-wtads/task_project
 
 # Criar ambiente virtual Python
 python3 -m venv venv
@@ -81,8 +81,8 @@ else:
 "
 
 # Configurar permissões
-chown -R www-data:www-data /home/ubuntu/minicurso-wtads/task_project
-chmod +x /home/ubuntu/minicurso-wtads/task_project/gunicorn.conf.py
+chown -R www-data:www-data /opt/minicurso-wtads/task_project
+chmod +x /opt/minicurso-wtads/task_project/gunicorn.conf.py
 
 # Configurar systemd service
 cp task_project.service /etc/systemd/system/
