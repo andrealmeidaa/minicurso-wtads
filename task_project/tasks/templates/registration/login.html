@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="columns is-centered">
+    <div class="column is-one-third">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    <span class="icon">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                    Entrar no Sistema
+                </p>
+            </header>
+            
+            <div class="card-content">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="notification is-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="field">
+                        <label class="label" for="{{ form.username.id_for_label }}">Usuário</label>
+                        <div class="control has-icons-left">
+                            {{ form.username }}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        {% if form.username.errors %}
+                            {% for error in form.username.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="{{ form.password.id_for_label }}">Senha</label>
+                        <div class="control has-icons-left">
+                            {{ form.password }}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                        {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-primary is-fullwidth">
+                                <span class="icon">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </span>
+                                <span>Entrar</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <footer class="card-footer">
+                <p class="card-footer-item">
+                    <small class="has-text-grey">
+                        Faça login para acessar suas tasks
+                    </small>
+                </p>
+            </footer>
+        </div>
+        
+        <div class="notification is-info mt-4">
+            <p class="has-text-centered">
+                <strong>Demo:</strong> Use as credenciais do superusuário para testar
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .input {
+        border-radius: 4px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set form field classes for Bulma
+        const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
+        inputs.forEach(input => {
+            input.classList.add('input');
+        });
+        
+        // Focus on username field
+        const usernameField = document.querySelector('input[type="text"]');
+        if (usernameField) {
+            usernameField.focus();
+        }
+    });
+</script>
+{% endblock %}

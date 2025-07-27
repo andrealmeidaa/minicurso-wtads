@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{% url 'task-list' %}">Tasks</a></li>
+        <li class="is-active"><a href="#" aria-current="page">{{ task.title|truncatechars:30 }}</a></li>
+    </ul>
+</nav>
+
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            {% if task.completed %}
+                <span class="icon has-text-success">
+                    <i class="fas fa-check-circle"></i>
+                </span>
+            {% else %}
+                <span class="icon has-text-warning">
+                    <i class="far fa-circle"></i>
+                </span>
+            {% endif %}
+            <span class="{% if task.completed %}has-text-grey-light{% endif %}">
+                {{ task.title }}
+            </span>
+        </p>
+        <div class="card-header-icon">
+            {% if task.completed %}
+                <span class="tag is-success">Concluída</span>
+            {% else %}
+                <span class="tag is-warning">Pendente</span>
+            {% endif %}
+        </div>
+    </header>
+    
+    <div class="card-content">
+        <div class="content">
+            {% if task.description %}
+                <h6 class="title is-6">Descrição:</h6>
+                <div class="box">
+                    {{ task.description|linebreaks }}
+                </div>
+            {% else %}
+                <p class="has-text-grey-light">
+                    <em>Nenhuma descrição fornecida.</em>
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Data de Criação</label>
+                    <div class="control">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-calendar-plus"></i>
+                            </span>
+                            <span>{{ task.created_at|date:"d/m/Y H:i" }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            {% if task.due_date %}
+            <div class="column">
+                <div class="field">
+                    <label class="label">Data de Vencimento</label>
+                    <div class="control">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                            <span>{{ task.due_date|date:"d/m/Y H:i" }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="column">
+                <div class="field">
+                    <label class="label">Última Atualização</label>
+                    <div class="control">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span>{{ task.updated_at|date:"d/m/Y H:i" }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="card-footer">
+        <a href="{% url 'task-update' task.pk %}" class="card-footer-item">
+            <span class="icon">
+                <i class="fas fa-edit"></i>
+            </span>
+            <span>Editar</span>
+        </a>
+        <a href="{% url 'task-delete' task.pk %}" class="card-footer-item has-text-danger">
+            <span class="icon">
+                <i class="fas fa-trash"></i>
+            </span>
+            <span>Excluir</span>
+        </a>
+        <a href="{% url 'task-list' %}" class="card-footer-item">
+            <span class="icon">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span>Voltar</span>
+        </a>
+    </footer>
+</div>
+{% endblock %}

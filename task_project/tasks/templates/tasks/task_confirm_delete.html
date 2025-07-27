@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Exclusão{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{% url 'task-list' %}">Tasks</a></li>
+        <li><a href="{% url 'task-detail' task.pk %}">{{ task.title|truncatechars:30 }}</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Excluir</a></li>
+    </ul>
+</nav>
+
+<div class="columns is-centered">
+    <div class="column is-half">
+        <div class="card">
+            <header class="card-header has-background-danger">
+                <p class="card-header-title has-text-white">
+                    <span class="icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    Confirmar Exclusão
+                </p>
+            </header>
+            
+            <div class="card-content">
+                <div class="content">
+                    <p class="has-text-centered">
+                        <span class="icon is-large has-text-danger">
+                            <i class="fas fa-trash-alt fa-3x"></i>
+                        </span>
+                    </p>
+                    
+                    <p class="has-text-centered is-size-5">
+                        Tem certeza de que deseja excluir a task:
+                    </p>
+                    
+                    <div class="box has-background-light mt-4">
+                        <h6 class="title is-6">{{ task.title }}</h6>
+                        {% if task.description %}
+                            <p class="has-text-grey">
+                                {{ task.description|truncatewords:20 }}
+                            </p>
+                        {% endif %}
+                        <div class="tags mt-3">
+                            {% if task.completed %}
+                                <span class="tag is-success">Concluída</span>
+                            {% else %}
+                                <span class="tag is-warning">Pendente</span>
+                            {% endif %}
+                            <span class="tag is-light">
+                                <span class="icon">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                {{ task.created_at|date:"d/m/Y" }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="notification is-warning">
+                        <p class="has-text-centered">
+                            <strong>⚠️ Atenção!</strong><br>
+                            Esta ação não pode ser desfeita. A task será permanentemente removida.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="card-footer">
+                <div class="card-footer-item">
+                    <form method="post" class="is-flex-grow-1">
+                        {% csrf_token %}
+                        <button type="submit" class="button is-danger is-fullwidth">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span>Sim, Excluir Task</span>
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer-item">
+                    <a href="{% url 'task-detail' task.pk %}" class="button is-light is-fullwidth">
+                        <span class="icon">
+                            <i class="fas fa-arrow-left"></i>
+                        </span>
+                        <span>Cancelar</span>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+{% endblock %}

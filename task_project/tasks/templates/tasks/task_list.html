@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}Minhas Tasks{% endblock %}
+
+{% block content %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            <h1 class="title">Minhas Tasks</h1>
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a href="{% url 'task-create' %}" class="button is-primary">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span>Nova Task</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="box">
+    <form method="get" class="field is-grouped">
+        <div class="control is-expanded">
+            <input class="input" type="text" name="search" placeholder="Buscar tasks..." value="{{ search_query }}">
+        </div>
+        <div class="control">
+            <div class="select">
+                <select name="status">
+                    <option value="" {% if not status_filter %}selected{% endif %}>Todas</option>
+                    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pendentes</option>
+                    <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Concluídas</option>
+                </select>
+            </div>
+        </div>
+        <div class="control">
+            <button type="submit" class="button is-info">
+                <span class="icon">
+                    <i class="fas fa-search"></i>
+                </span>
+                <span>Filtrar</span>
+            </button>
+        </div>
+        {% if search_query or status_filter %}
+        <div class="control">
+            <a href="{% url 'task-list' %}" class="button is-light">
+                <span class="icon">
+                    <i class="fas fa-times"></i>
+                </span>
+                <span>Limpar</span>
+            </a>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+<!-- Tasks -->
+{% if tasks %}
+    <div class="columns is-multiline">
+        {% for task in tasks %}
+        <div class="column is-one-third">
+            <div class="card task-card {% if task.completed %}completed-task{% endif %}">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            {% if task.completed %}
+                                <span class="icon has-text-success">
+                                    <i class="fas fa-check-circle fa-lg"></i>
+                                </span>
+                            {% else %}
+                                <span class="icon has-text-warning">
+                                    <i class="far fa-circle fa-lg"></i>
+                                </span>
+                            {% endif %}
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-5 task-title">{{ task.title }}</p>
+                            {% if task.due_date %}
+                                <p class="subtitle is-7">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </span>
+                                    Vencimento: {{ task.due_date|date:"d/m/Y H:i" }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if task.description %}
+                        <div class="content">
+                            {{ task.description|truncatewords:15|linebreaks }}
+                        </div>
+                    {% endif %}
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <a href="{% url 'task-detail' task.pk %}" class="button is-small is-info is-outlined">
+                                <span class="icon">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                                <span>Ver</span>
+                            </a>
+                        </div>
+                        <div class="control">
+                            <a href="{% url 'task-update' task.pk %}" class="button is-small is-warning is-outlined">
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                                <span>Editar</span>
+                            </a>
+                        </div>
+                        <div class="control">
+                            <a href="{% url 'task-delete' task.pk %}" class="button is-small is-danger is-outlined">
+                                <span class="icon">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span>Excluir</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <p class="card-footer-item">
+                        <small class="has-text-grey">
+                            Criada em {{ task.created_at|date:"d/m/Y H:i" }}
+                        </small>
+                    </p>
+                </footer>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            {% if page_obj.has_previous %}
+                <a class="pagination-previous" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}">Anterior</a>
+            {% endif %}
+            
+            {% if page_obj.has_next %}
+                <a class="pagination-next" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}">Próxima</a>
+            {% endif %}
+
+            <ul class="pagination-list">
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li>
+                            <a class="pagination-link is-current" aria-label="Página {{ num }}" aria-current="page">{{ num }}</a>
+                        </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li>
+                            <a class="pagination-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}" aria-label="Ir para página {{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+
+{% else %}
+    <div class="notification is-info">
+        <p class="has-text-centered">
+            <span class="icon is-large">
+                <i class="fas fa-tasks fa-2x"></i>
+            </span>
+        </p>
+        <p class="has-text-centered">
+            {% if search_query or status_filter %}
+                Nenhuma task encontrada com os filtros aplicados.
+            {% else %}
+                Você ainda não tem nenhuma task. Que tal criar a primeira?
+            {% endif %}
+        </p>
+        {% if not search_query and not status_filter %}
+        <div class="has-text-centered mt-4">
+            <a href="{% url 'task-create' %}" class="button is-primary">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span>Criar primeira task</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

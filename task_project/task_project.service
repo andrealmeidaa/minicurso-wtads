@@ -1,0 +1,24 @@
+[Unit]
+Description=Task Project Django Application
+After=network.target mysql.service
+Requires=mysql.service
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+RuntimeDirectory=gunicorn
+WorkingDirectory=/home/ubuntu/minicurso-wtads/task_project
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=DJANGO_SETTINGS_MODULE=task_project.settings
+EnvironmentFile=/home/ubuntu/minicurso-wtads/task_project/.env
+ExecStart=/usr/local/bin/gunicorn task_project.wsgi:application -c /home/ubuntu/minicurso-wtads/task_project/gunicorn.conf.py
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=task_project
+
+[Install]
+WantedBy=multi-user.target

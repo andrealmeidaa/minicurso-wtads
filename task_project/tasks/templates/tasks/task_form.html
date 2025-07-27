@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{% url 'task-list' %}">Tasks</a></li>
+        <li class="is-active"><a href="#" aria-current="page">{{ title }}</a></li>
+    </ul>
+</nav>
+
+<div class="columns is-centered">
+    <div class="column is-two-thirds">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    <span class="icon">
+                        <i class="fas fa-tasks"></i>
+                    </span>
+                    {{ title }}
+                </p>
+            </header>
+            
+            <div class="card-content">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="field">
+                        <label class="label" for="{{ form.title.id_for_label }}">Título</label>
+                        <div class="control has-icons-left">
+                            {{ form.title }}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-heading"></i>
+                            </span>
+                        </div>
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.title.help_text %}
+                            <p class="help">{{ form.title.help_text }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="{{ form.description.id_for_label }}">Descrição</label>
+                        <div class="control">
+                            {{ form.description }}
+                        </div>
+                        {% if form.description.errors %}
+                            {% for error in form.description.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.description.help_text %}
+                            <p class="help">{{ form.description.help_text }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="{{ form.due_date.id_for_label }}">Data de Vencimento</label>
+                        <div class="control has-icons-left">
+                            {{ form.due_date }}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                        </div>
+                        {% if form.due_date.errors %}
+                            {% for error in form.due_date.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        <p class="help">Formato: DD/MM/AAAA HH:MM (opcional)</p>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <label class="checkbox">
+                                {{ form.completed }}
+                                Marcar como concluída
+                            </label>
+                        </div>
+                        {% if form.completed.errors %}
+                            {% for error in form.completed.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">
+                                <span class="icon">
+                                    <i class="fas fa-save"></i>
+                                </span>
+                                <span>{{ button_text }}</span>
+                            </button>
+                        </div>
+                        <div class="control">
+                            <a href="{% url 'task-list' %}" class="button is-light">
+                                <span class="icon">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                                <span>Cancelar</span>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .input, .textarea, .select select {
+        border-radius: 4px;
+    }
+    
+    .textarea {
+        min-height: 120px;
+    }
+    
+    input[type="datetime-local"] {
+        padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+        border: 1px solid #dbdbdb;
+        border-radius: 4px;
+        width: 100%;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set form field classes for Bulma
+        const inputs = document.querySelectorAll('input[type="text"], input[type="datetime-local"]');
+        inputs.forEach(input => {
+            input.classList.add('input');
+        });
+        
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            textarea.classList.add('textarea');
+        });
+        
+        // Focus on first input
+        const firstInput = document.querySelector('input[type="text"]');
+        if (firstInput) {
+            firstInput.focus();
+        }
+    });
+</script>
+{% endblock %}

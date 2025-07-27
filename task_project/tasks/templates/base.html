@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gerenciador de Tasks{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .navbar-brand .navbar-item img {
+            max-height: 2.25rem;
+        }
+        .task-card {
+            transition: transform 0.2s;
+        }
+        .task-card:hover {
+            transform: translateY(-2px);
+        }
+        .completed-task {
+            opacity: 0.7;
+        }
+        .completed-task .task-title {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'task-list' %}">
+                <strong>📋 Gerenciador de Tasks</strong>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                {% if user.is_authenticated %}
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            <span class="icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            {{ user.username }}
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="{% url 'task-create' %}">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                Nova Task
+                            </a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item" href="{% url 'logout' %}">
+                                <span class="icon">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </span>
+                                Sair
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a class="navbar-item" href="{% url 'login' %}">
+                        <span class="icon">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </span>
+                        Entrar
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="container mt-4">
+            {% for message in messages %}
+                <div class="notification is-{{ message.tags|default:'info' }}">
+                    <button class="delete"></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="section">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Gerenciador de Tasks</strong> - Sistema de gerenciamento de tarefas
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Close notifications
+        document.addEventListener('DOMContentLoaded', () => {
+            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                const $notification = $delete.parentNode;
+                $delete.addEventListener('click', () => {
+                    $notification.parentNode.removeChild($notification);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
