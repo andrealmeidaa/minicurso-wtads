@@ -10,13 +10,16 @@ if [ -z "$AWS_REGION" ]; then
 fi
 
 if [ -z "$AWS_SECRET_NAME" ]; then
-    export AWS_SECRET_NAME="task-project/prod"
-    echo "AWS_SECRET_NAME não definido, usando padrão: task-project/prod"
+    export AWS_SECRET_NAME="Mydbsecret"
+    echo "AWS_SECRET_NAME não definido, usando padrão: Mydbsecret"
 fi
 
 # Atualizar sistema
 apt update -y
-apt install -y nginx python3-pip python3-venv git pkg-config libmysqlclient-dev awscli
+
+
+
+apt install -y nginx python3-pip python3-venv git pkg-config libmysqlclient-dev
 
 # Criar usuário www-data se não existir
 if ! id -u www-data > /dev/null 2>&1; then
@@ -33,6 +36,7 @@ chown www-data:www-data /var/run/gunicorn
 if [ ! -d "/opt/minicurso-wtads" ]; then
     cd /opt
     git clone https://github.com/andrealmeidaa/minicurso-wtads.git
+    cd /opt/minicurso-wtads
     git switch deploy_aws_rds
 else
     cd /opt/minicurso-wtads
