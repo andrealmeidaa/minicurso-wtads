@@ -1,6 +1,7 @@
 [Unit]
 Description=Task Project Django Application
-
+After=network.target
+Wants=network.target
 
 [Service]
 Type=notify
