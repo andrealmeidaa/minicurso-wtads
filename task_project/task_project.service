@@ -1,7 +1,6 @@
 [Unit]
 Description=Task Project Django Application
-After=network.target mysql.service
-Requires=mysql.service
+
 
 [Service]
 Type=notify
