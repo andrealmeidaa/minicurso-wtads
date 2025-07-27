@@ -65,16 +65,4 @@ def get_rds_connection_info(secret_name, region_name="us-east-1"):
             },
         }
 
-def get_django_secret_key(secret_name, region_name="us-east-1"):
-    """
-    Get Django secret key from AWS Secrets Manager
-    """
-    try:
-        secret_data = get_secret(secret_name, region_name)
-        return secret_data.get('django_secret_key')
-    except Exception as e:
-        logger.error(f"Error getting Django secret key: {e}")
-        # Fallback to environment variable
-        import os
-        from django.core.management.utils import get_random_secret_key
-        return os.getenv('SECRET_KEY', get_random_secret_key())
+

@@ -31,9 +31,9 @@ if USE_AWS_SECRETS:
     try:
         import sys
         sys.path.append(str(BASE_DIR.parent))
-        from aws_config import get_django_secret_key, get_rds_connection_info
+        from aws_config import  get_rds_connection_info
         
-        SECRET_KEY = get_django_secret_key(AWS_SECRET_NAME, AWS_REGION)
+        SECRET_KEY = get_random_secret_key()
         DATABASE_CONFIG = get_rds_connection_info(AWS_SECRET_NAME, AWS_REGION)
     except Exception as e:
         print(f"Warning: Failed to load AWS secrets, falling back to environment variables: {e}")
