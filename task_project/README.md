@@ -47,6 +47,7 @@ sudo ./deploy.sh
 
 O script de deploy irá:
 - Instalar Nginx, MySQL e dependências
+- Criar ambiente virtual Python
 - Configurar banco de dados
 - Configurar Gunicorn como serviço systemd
 - Configurar Nginx como proxy reverso
@@ -60,30 +61,38 @@ O script de deploy irá:
    cd task_project
    ```
 
-2. **Instale as dependências:**
+2. **Crie um ambiente virtual:**
    ```bash
-   pip install -r requirements.txt
+   python3 -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   # ou
+   venv\Scripts\activate     # Windows
    ```
 
-3. **Configure as variáveis de ambiente (opcional):**
+3. **Instale as dependências:**
+   ```bash
+   pip install -r requirements_simple.txt
+   ```
+
+4. **Configure as variáveis de ambiente (opcional):**
    ```bash
    cp .env.example .env
    ```
    
    Para desenvolvimento com SQLite, você pode usar as configurações padrão.
 
-4. **Execute as migrações:**
+5. **Execute as migrações:**
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-5. **Crie um superusuário:**
+6. **Crie um superusuário:**
    ```bash
    python manage.py createsuperuser
    ```
 
-6. **Execute o servidor:**
+7. **Execute o servidor:**
    ```bash
    python manage.py runserver
    ```

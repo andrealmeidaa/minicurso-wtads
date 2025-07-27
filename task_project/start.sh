@@ -10,6 +10,16 @@ if [ ! -f ".env" ]; then
     cp .env.example .env
 fi
 
+# Criar ambiente virtual se não existir
+if [ ! -d "venv" ]; then
+    echo "Criando ambiente virtual..."
+    python3 -m venv venv
+fi
+
+# Ativar ambiente virtual
+echo "Ativando ambiente virtual..."
+source venv/bin/activate
+
 # Instalar dependências
 echo "Instalando dependências..."
 pip install -r requirements_simple.txt

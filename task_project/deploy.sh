@@ -29,8 +29,12 @@ fi
 
 cd /home/ubuntu/minicurso-wtads/task_project
 
-# Instalar dependências Python
-pip3 install -r requirements_simple.txt
+# Criar ambiente virtual Python
+python3 -m venv venv
+source venv/bin/activate
+
+# Instalar dependências Python no ambiente virtual
+pip install -r requirements_simple.txt
 
 # Configurar MySQL
 systemctl start mysql
@@ -48,7 +52,7 @@ service mysql restart
 
 # Configurar arquivo .env
 cat > .env << EOF
-SECRET_KEY=$(python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
+SECRET_KEY=$(venv/bin/python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
 DEBUG=False
 ALLOWED_HOSTS=*
 DB_NAME=taskdb
@@ -59,14 +63,14 @@ DB_PORT=3306
 EOF
 
 # Executar migrações
-python3 manage.py makemigrations
-python3 manage.py migrate
+venv/bin/python manage.py makemigrations
+venv/bin/python manage.py migrate
 
 # Coletar arquivos estáticos
-python3 manage.py collectstatic --noinput
+venv/bin/python manage.py collectstatic --noinput
 
 # Criar superusuário se não existir
-python3 manage.py shell -c "
+venv/bin/python manage.py shell -c "
 from django.contrib.auth import get_user_model
 User = get_user_model()
 if not User.objects.filter(username='admin').exists():

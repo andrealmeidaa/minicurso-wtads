@@ -9,10 +9,10 @@ User=www-data
 Group=www-data
 RuntimeDirectory=gunicorn
 WorkingDirectory=/home/ubuntu/minicurso-wtads/task_project
-Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=PATH=/home/ubuntu/minicurso-wtads/task_project/venv/bin:/usr/local/bin:/usr/bin:/bin
 Environment=DJANGO_SETTINGS_MODULE=task_project.settings
 EnvironmentFile=/home/ubuntu/minicurso-wtads/task_project/.env
-ExecStart=/usr/local/bin/gunicorn task_project.wsgi:application -c /home/ubuntu/minicurso-wtads/task_project/gunicorn.conf.py
+ExecStart=/home/ubuntu/minicurso-wtads/task_project/venv/bin/gunicorn task_project.wsgi:application -c /home/ubuntu/minicurso-wtads/task_project/gunicorn.conf.py
 ExecReload=/bin/kill -s HUP $MAINPID
 Restart=always
 RestartSec=3
