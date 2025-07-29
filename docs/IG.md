@@ -1,68 +1,28 @@
-# Guia do Instrutor: Criação de um Aplicativo Web Dimensionável e Altamente Disponível
+# Roteiro Prático: Criação de um Aplicativo Web Dimensionável e Altamente Disponível
 
-> ⚠️ **Importante:** este guia tem o objetivo de auxiliar o uso dos materiais do projeto. Use este guia como folha de respostas para realizar as tarefas mencionadas nas instruções do laboratório.
+> ⚠️ **Importante:** este guia tem o objetivo de auxiliar na implantação de uma aplicação WEB com Django. Use este guia como orientador para realizar as tarefas mencionadas nas instruções do laboratório. Essa versão para o minicurso de TADS foi adaptada a partir do guia do instrutor oficial da AWS, fazendo ajustes apenas da aplicação.
 
 ## Introdução ao projeto
 
-*O projeto tem o objetivo de desafiar os alunos*. O tempo necessário para os alunos concluírem o projeto variará de acordo com o nível de habilidade do aluno. A previsão é de que o projeto levará de **8 a 12 horas** para ser concluído.
+Caso fosse desenvolvido do zero e sem orientação, o tempo necessário para conclusão do projeto variará de acordo com o nível de habilidade do cursista. A previsão é de que o projeto poderia levar de **8 a 12 horas** para ser concluído.
 
-*O ambiente do laboratório é de longa duração*, ou seja, um aluno pode iniciar o laboratório em uma segunda-feira e continuar trabalhando nele na terça-feira ou em qualquer outro dia. Ao iniciar o ambiente do laboratório novamente, o aluno verá que tudo o que criou na conta da AWS ainda estará lá e, portanto, será possível continuar de onde parou.
+*O ambiente do laboratório é de longa duração*, ou seja, um cursista pode iniciar o laboratório em uma segunda-feira e continuar trabalhando nele na terça-feira ou em qualquer outro dia. Ao iniciar o ambiente do laboratório novamente, o cursista verá que tudo o que criou na conta da AWS ainda estará lá e, portanto, será possível continuar de onde parou.
 
-## Como ensinar o projeto
 
-É possível atribuir o projeto aos alunos sem gastar muito tempo com isso na aula. Porém, com essa abordagem, os alunos podem enfrentar dificuldades porque as seções das instruções do laboratório para os alunos não fornecem orientações detalhadas.
 
-O projeto foi criado com o objetivo de pedir aos alunos que o concluam em vários dias ou semanas. As seções a seguir fornecem algumas sugestões de abordagens que podem ser utilizadas com o projeto.
+## Pré-requisitos do cursista
 
-> 💡 **Dica:** incentive os alunos a usarem capturas de telas ou gravações ao concluírem o trabalho. Esses ativos podem ser úteis para avaliar o aprendizado do aluno e os alunos podem utilizá-los em um portfólio de trabalho ao procurar emprego.
+Caso fosse feito do zero, este projeto iria requer entendimento dos principais serviços da AWS, como computação, armazenamento, redes e serviços de banco de dados. O projeto também requer conhecimento de práticas recomendadas de arquitetura, como alta disponibilidade, dimensionamento e segurança. ​Os cursistas precisam ter concluído o curso Arquitetura em nuvem na AWS Academy para adquirir o conhecimento necessário.
 
-**Opção 1: abordagem de sala de aula**
-
-*Adequada para alunos iniciantes*
-
-Você pode ensinar o projeto por meio de uma abordagem guiada com várias sessões de verificação agendadas. Por exemplo:
-
-- Atribuir as fases 1 e 2 como lição de casa.
-- Na sessão de sala de aula seguinte, verifique:
-  - Eles prepararam a estimativa de custo?
-  - Eles criaram o diagrama da arquitetura? Eles prepararam uma apresentação com a solução proposta?
-  - Eles criaram um aplicativo web funcional em uma instância do Amazon Elastic Compute Cloud (Amazon EC2)?
-- Atribuir a fase 3. Na sessão de sala de aula seguinte, verifique:
-  - Eles desacoplaram a arquitetura?
-  - Eles criaram um banco de dados do Amazon Relational Database Service (Amazon RDS) em uma sub-rede separada?
-- Atribuir a fase 4. Na sessão de sala de aula seguinte, verifique:
-  - Eles criaram um balanceador de carga?
-  - Eles configuraram o auto scaling?
-  - A solução funciona na nova arquitetura?
-  - Eles testaram o aplicativo com relação a carga?
-
-**Opção 2: abordagem de grupo**
-
-*Adequada quando a discussão e o estudo em grupo são incentivados*
-
-É possível ensinar o projeto organizando os alunos em equipes.
-
-- Peça aos alunos para concluírem o projeto por conta própria, mas incentive que compartilhem dicas com os membros da equipe.
-- Se um aluno não puder progredir, solicite que ele entre em contato com os membros de sua equipe primeiro. Se a equipe não puder progredir, incentive-a a entrar em contato com você individualmente ou em um fórum para obter ajuda de outras pessoas.
-- Conforme necessário, compartilhe dicas deste documento de forma seletiva.
-
-**Opção 3: abordagem de poucas instruções ou nenhuma**
-
-*Adequado para alunos avançados*
-
-Você pode instruir os alunos avançados a determinarem sua própria abordagem. Eles podem usar uma arquitetura e pilha de tecnologia diferentes em vez de Java Script.
-
-## Pré-requisitos do aluno
-
-Este projeto requer entendimento dos principais serviços da AWS, como computação, armazenamento, redes e serviços de banco de dados. O projeto também requer conhecimento de práticas recomendadas de arquitetura, como alta disponibilidade, dimensionamento e segurança. ​Os alunos precisam ter concluído o curso Arquitetura em nuvem na AWS Academy para adquirir o conhecimento necessário.
-
-Os alunos que concluíram o curso Princípios da nuvem na AWS Academy e estiverem inscritos no curso Arquitetura na nuvem na AWS Academy também podem tentar concluir este projeto com a ajuda de materiais do curso, laboratório de cursos e orientações do instrutor.
+Os cursistas que concluíram o curso Princípios da nuvem na AWS Academy e estiverem inscritos no curso Arquitetura na nuvem na AWS Academy também podem tentar concluir este projeto com a ajuda de materiais do curso, laboratório de cursos e orientações do instrutor.
 
 Ter conhecimento de alguma linguagem de programação, como Python ou JavaScript, é uma vantagem, mas não é obrigatório.
 
-## Orientação aos alunos
+Para fins do minicurso, é importante que o cursista tenha conhecimentos em uso do shell do linux, redes de computadores e se possível do framework Django, caso queira customizar a aplicação.
 
-Esta seção fornece detalhes de como concluir as etapas do projeto em que orientações detalhadas *não* são fornecidas ao aluno. As instruções do laboratório incluem links para recursos e referências a materiais do curso que podem ser úteis. Incentive os alunos a usarem estes recursos, e use este guia do instrutor para fornecer orientações adicionais quando necessário.
+## Orientação aos cursistas
+
+Esta seção fornece detalhes de como concluir as etapas do projeto em que orientações detalhadas *não* são fornecidas ao cursista. As instruções do laboratório incluem links para recursos e referências a materiais do curso que podem ser úteis. Incentive os cursistas a usarem estes recursos, e use este guia do instrutor para fornecer orientações adicionais quando necessário.
 
 > 📝 **Observação:**
 > - Este guia do instrutor fornece uma solução de exemplo para o cenário. No entanto, o guia não abrange todas as soluções possíveis.
@@ -70,14 +30,12 @@ Esta seção fornece detalhes de como concluir as etapas do projeto em que orien
 
 > ⚠️ **Importante:** a solução neste guia funcionará apenas se os trechos de código forem usados exatamente como na instrução, sem modificação.
 
-### Fase 1: planejamento do design e estimativa de custo
+Utilizaremos uma aplicação feita com o framework Django, para gerenciamento de tarefas, o famoso todo-list. Essa aplicação tem controle de acesso implementado. O objetivo aqui é ilustrar diversas formas de fazer deploy da aplicação na AWS, usando o console AWS para tal.
 
-Nesta fase, os alunos planejarão o design da solução e o custo estimado.
 
-#### Tarefa 1: criar um diagrama da arquitetura
+#### Planejamento: Diagrama de Arquitetura Final
 
-Nesta tarefa, os alunos criarão um diagrama da arquitetura ilustrando o que eles planejam criar. Serão fornecidos recursos para ajudar os alunos a criar o diagrama.
-
+Ao final do projeto, precisamos obter uma arquitetura semelhante ao diagrama que mostre os elementos e serviços AWS utilizados e a conexão entre eles.
 O diagrama da arquitetura a seguir mostra a solução proposta:
 
 ![Diagrama proposto da arquitetura](images/Final-arc.png)
@@ -87,45 +45,10 @@ O diagrama da arquitetura a seguir mostra a solução proposta:
 - [Ícones de arquitetura da AWS](https://aws.amazon.com/architecture/icons): este site fornece ferramentas para desenhar diagramas de arquitetura da AWS. Use a seu critério.
 - [Diagramas de arquitetura de referência da AWS](https://aws.amazon.com/architecture/reference-architecture-diagrams): este site fornece diagramas de arquitetura de referência para diversos casos de uso.
 
-#### Tarefa 2: desenvolvimento de uma estimativa de custo
 
-Nesta tarefa, os alunos desenvolverão uma estimativa de custo para executar sua solução na região *us-east-1* por 12 meses.
+### Fase 1: criar um aplicativo web funcional básico
 
-A solução é a seguinte:
-
-1. Acesse a [AWS Pricing Calculator](https://calculator.aws).
-2. Clique em **Criar estimativa**.
-3. Em **Escolher uma região**, escolha **Leste dos EUA (Norte da Virgínia)**.
-4. Pesquise e configure os serviços que serão usados na solução. Configure cada serviço com base em como ele será usado.
-5. Após a inclusão de todos os serviços necessários, selecione **Visualizar resumo** no canto inferior direito.
-   
-   A estimativa exibe o custo estimado inicial (se houver), o custo mensal e o custo total de 12 meses.
-
-6. Revise as estimativas de custos de serviços individuais e ajuste a configuração para atingir um custo aproximado.
-7. Exportar a estimativa:
-   - Clique em **Exportar** e selecione exportar como um arquivo .csv ou .pdf.
-   - Quando solicitado, selecione **OK** e baixe o arquivo.
-
-Os alunos devem usar essa estimativa para ajustar a configuração da sua solução.
-
-A imagem a seguir demonstra um exemplo de estimativa de custo. As estimativas de custo dependem dos serviços selecionados e de como eles são configurados. A estimativa de um aluno pode ser diferente deste exemplo.
-
-![Exemplo de estimativa de custo](images/CostEstimate.png)
-
-> ⚠️ **Importante:** A AWS Pricing Calculator fornece apenas uma estimativa de suas taxas da AWS e não inclui qualquer imposto aplicável. As taxas reais dependem de vários fatores, incluindo o uso real dos serviços da AWS.
-
-> 📝 **Observação:** peça que os alunos adicionem o diagrama da arquitetura e a estimativa de custo à apresentação para compartilhar com a classe. É possível avaliar esses materiais como parte da avaliação do trabalho deste projeto.
-
-Nessa fase, os alunos criaram um diagrama da arquitetura e estimativa de custo para a solução proposta.
-
-**Referências**
-
-- [O que é AWS Pricing Calculator?](https://docs.aws.amazon.com/pricing-calculator/latest/userguide/what-is-pricing-calculator.html)
-- [Modelo da apresentação em PowerPoint](https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCAP1-1-DEV/1-lab-capstone-project-1/s3/Academy_Lab_Projects_Showcase_template.pptx): este modelo é fornecido aos alunos. Personalize o modelo da apresentação conforme necessário e compartilhe-o com os alunos.
-
-### Fase 2: criar um aplicativo web funcional básico
-
-Nesta fase, os alunos começarão a criar a solução. Eles configurarão a rede virtual e criarão um servidor web.
+Nesta fase, os cursistas começarão a criar a solução. Eles configurarão a rede virtual e criarão um servidor web.
 
 O diagrama a seguir mostra diversos recursos da AWS usados para criar a arquitetura para esta fase:
 
@@ -133,7 +56,7 @@ O diagrama a seguir mostra diversos recursos da AWS usados para criar a arquitet
 
 #### Tarefa 1: criar uma rede virtual
 
-Nesta tarefa, os alunos criarão a rede virtual para hospedar o aplicativo. A configuração de rede inclui uma nuvem privada virtual (VPC), um gateway de internet, uma sub-rede e rotas.
+Nesta tarefa, os cursistas criarão a rede virtual para hospedar o aplicativo. A configuração de rede inclui uma nuvem privada virtual (VPC), um gateway de internet, uma sub-rede e rotas.
 
 A solução é a seguinte:
 
@@ -141,10 +64,10 @@ A solução é a seguinte:
 
 2. Selecione **Criar VPC** e configure o seguinte:
    - **Recursos a serem criados:** selecione **Somente VPC**.
-   - **Tag de nome** insira `CapstoneVPC`
+   - **Tag de nome** insira `TaskVPC`
    - **IPv4 CIDR:** insira `10.0.0.0/16`
    
-   > 📝 **Observação**: o intervalo de CIDR fornecido para a configuração da VPC é apenas um exemplo. Os alunos podem usar um intervalo diferente conforme permitido pelo ambiente do laboratório.
+   > 📝 **Observação**: o intervalo de CIDR fornecido para a configuração da VPC é apenas um exemplo. Os cursistas podem usar um intervalo diferente conforme permitido pelo ambiente do laboratório.
    
    - Clique em **Criar VPC**.
 
@@ -155,31 +78,31 @@ A solução é a seguinte:
 
 4. No painel de navegação, clique em **Gateways da Internet** e configure o seguinte:
    - Clique em **Criar gateway da Internet**.
-   - **Tag de nome:** insira `CapstoneIGW`
+   - **Tag de nome:** insira `TaskIGW`
    - Clique em **Criar gateway da Internet**.
 
 5. Anexar o gateway da Internet à VPC:
    - Selecione **Ações** > **Anexar à VPC**.
-   - **VPCs disponíveis**: selecione **CapstoneVPC**.
+   - **VPCs disponíveis**: selecione **TaskVPC**.
    - Selecione **Associar gateway da Internet**.
 
 6. No painel de navegação, clique em **Sub-redes** e configure o seguinte:
    - Selecione **Criar sub-rede**.
-   - **ID da VPC:** selecione **CapstoneVPC**.
+   - **ID da VPC:** selecione **TaskVPC**.
    - **Nome da sub-rede:** insira `Public Subnet 1`
    - **Zona de Disponibilidade:** da lista suspensa, escolha a primeira Zona de Disponibilidade.
    - **IPv4 CIDR block** (Bloco CIDR IPv4): insira `10.0.1.0/24`
    - Selecione **Criar sub-rede**.
 
 7. No painel de navegação, clique em **Tabelas de rotas** e configure o seguinte:
-   - Em **CapstoneVPC**, selecione o link **ID da tabela de rotas**.
+   - Em **TaskVPC**, selecione o link **ID da tabela de rotas**.
    
-   > 💡 **Dica:** procure *CapstoneVPC* na coluna **VPC**. Se o nome da VPC não estiver visível, ajuste a largura da coluna.
+   > 💡 **Dica:** procure *TaskVPC* na coluna **VPC**. Se o nome da VPC não estiver visível, ajuste a largura da coluna.
    
    - Na guia **Rotas**, no painel inferior, clique em **Editar rotas**.
    - Clique em **Adicionar rota** e adicione a seguinte rota:
      - **Destino:** insira `0.0.0.0/0`
-     - **Alvo:** insira `Gateway da Internet` e clique em **CapstoneIGW**.
+     - **Alvo:** insira `Gateway da Internet` e clique em **TaskIGW**.
    - Clique em **Salvar alterações**.
 
 8. No painel de navegação, clique em **Sub-redes** e configure o seguinte:
@@ -196,7 +119,7 @@ Os recursos da rede virtual estão prontos. A próxima etapa é colocar uma máq
 
 #### Tarefa 2: criar uma máquina virtual
 
-Nesta tarefa, os alunos criarão uma instância do EC2 (máquina virtual) e instalarão um aplicativo web e um banco de dados na instância.
+Nesta tarefa, os cursistas criarão uma instância do EC2 (máquina virtual) e instalarão um aplicativo web e um banco de dados na instância.
 
 A solução é a seguinte:
 
@@ -204,7 +127,7 @@ A solução é a seguinte:
 
 2. Clique em **Executar instância** > **Executar instância** e configure o seguinte:
 
-3. Na seção **Nome e tags**, em **Nome**, insira `CapstonePOC`
+3. Na seção **Nome e tags**, em **Nome**, insira `TaskPOC`
 
 4. Na seção **Application and OS Images (Imagens do aplicativo e do sistema operacional)**, em **Quick Start (Início rápido)**, selecione **Ubuntu**.
 
@@ -212,10 +135,10 @@ A solução é a seguinte:
 
 6. Na seção **Configurações de rede**, configure o seguinte:
    - Clique em **Editar**.
-   - **VPC:** clique em **CapstoneVPC**.
+   - **VPC:** clique em **TaskVPC**.
    - **Atribuir IP público automaticamente:** selecione **Habilitar**.
    - **Firewall (grupos de segurança):** selecione **Criar grupo de segurança**.
-   - **Nome do grupo de segurança:** insira `CapstoneAPPSG`
+   - **Nome do grupo de segurança:** insira `TaskAPPSG`
    - Selecione **Adicionar grupo de segurança**.
    - Mantenha a regra SSH existente e adicione duas novas regras com as seguintes configurações:
      - **New rule 1** (Nova regra 1): em **Tipo**, clique em **HTTP**. Em **Tipo de origem**, selecione **Qualquer lugar**.
@@ -275,7 +198,7 @@ systemctl enable mysql
 
 # Criar banco de dados e usuário
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS taskdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-mysql -u root -e "CREATE USER IF NOT EXISTS 'taskapp'@'localhost' IDENTIFIED BY 'task@123';"
+mysql -u root -e "CREATE USER IF NOT EXISTS 'taskapp'@'localhost' IDENTIFIED BY 'task-123';"
 mysql -u root -e "GRANT ALL PRIVILEGES ON taskdb.* TO 'taskapp'@'localhost';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 
@@ -349,9 +272,9 @@ echo "Senha admin: admin123"
 
 ```
 
-> ⚠️ **Importante:** verifique o formato do script depois de copiá-lo para o campo de dados do usuário. Se as linhas de código parecerem quebradas, tente copiar o código do arquivo [SolutionCodePOC](https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCAP1-1-DEV/1-lab-capstone-project-1/s3/UserdataScript-phase-2.sh).
+> ⚠️ **Importante:** verifique o formato do script depois de copiá-lo para o campo de dados do usuário. Se as linhas de código parecerem quebradas, tente copiar o código do arquivo [deploy.sh](https://github.com/andrealmeidaa/minicurso-wtads/blob/main/task_project/deploy.sh).
 
-> 📝 **Observação:** esse script instalará o Node.js, o aluno registrará o aplicativo (site, JavaScript, CSS e outros arquivos) e o banco de dados MySQL na instância do EC2.
+> 📝 **Observação:** esse script instalará o Python, Django, Nginx e dependências correlatas a partir do repositório.
 
 9. Mantenha os valores padrão para todas as outras configurações e selecione **Executar instância**.
 
@@ -359,23 +282,23 @@ echo "Senha admin: admin123"
 
 #### Tarefa 3: testar a implantação
 
-Nesta tarefa, os alunos testarão o aplicativo implantado para garantir que ele pode ser acessado e está funcionando.
+Nesta tarefa, os cursistas testarão o aplicativo implantado para garantir que ele pode ser acessado e está funcionando.
 
 A solução é a seguinte:
 
-1. Para testar o aplicativo web, acesse-o pela internet usando o **Endereço IPv4 público** ou **DNS do IPv4 público** da instância CapstonePOC.
+1. Para testar o aplicativo web, acesse-o pela internet usando o **Endereço IPv4 público** ou **DNS do IPv4 público** da instância TaskPOC.
 
    **Observação:** use http (em vez de https) ao acessar o aplicativo web no navegador.
 
-2. Realize algumas tarefas, como adicionar novos registros de alunos, editar registros e excluir registros. Mantenha ao menos um registro no banco de dados para que você tenha dados para migrar para um novo banco de dados em uma tarefa posterior.
+2. Realize algumas tarefas, como crir tarefas, editar, dentre outras, para garantir o funcionamento da aplicação.
 
-Os alunos agora têm um site funcional que executa em uma instância do EC2.
+Os cursistas agora têm um site funcional que executa em uma instância do EC2.
 
-A arquitetura que os alunos criaram até agora foi fácil de criar, com poucos componentes e baixo custo. Essa abordagem é adequada para uma prova de conceito (POC). No entanto, uma arquitetura monolítica, em que todos os componentes existem em uma única máquina virtual, não é flexível e é difícil de dimensionar. Na próxima fase, os alunos separarão as diversas camadas.
+A arquitetura que os cursistas criaram até agora foi fácil de criar, com poucos componentes e baixo custo. Essa abordagem é adequada para uma prova de conceito (POC). No entanto, uma arquitetura monolítica, em que todos os componentes existem em uma única máquina virtual, não é flexível e é difícil de dimensionar. Na próxima fase, os cursistas separarão as diversas camadas.
 
-### Fase 3: desacoplamento dos componentes do aplicativo
+### Fase 2: desacoplamento dos componentes do aplicativo
 
-Após a criação da POC em uma única máquina virtual e de seu funcionamento esperado, os alunos prosseguirão para o próximo nível do projeto para desacoplar as camadas do aplicativo e banco de dados. Separar as camadas fornece flexibilidade à arquitetura e a habilidade de dimensionar cada camada de forma independente. A segurança também pode ser implantada para as duas camadas a fim de melhorar o procedimento de segurança.
+Após a criação da POC em uma única máquina virtual e de seu funcionamento esperado, os cursistas prosseguirão para o próximo nível do projeto para desacoplar as camadas do aplicativo e banco de dados. Separar as camadas fornece flexibilidade à arquitetura e a habilidade de dimensionar cada camada de forma independente. A segurança também pode ser implantada para as duas camadas a fim de melhorar o procedimento de segurança.
 
 O diagrama a seguir demonstra a possível aparência da arquitetura após o desacoplamento dos componentes.
 
@@ -383,41 +306,41 @@ O diagrama a seguir demonstra a possível aparência da arquitetura após o desa
 
 #### Tarefa 1: alterar a configuração da VPC
 
-Nesta tarefa, os alunos modificarão a configuração de rede para hospedar um banco de dados do Amazon RDS separada do aplicativo web.
+Nesta tarefa, os cursistas modificarão a configuração de rede para hospedar um banco de dados do Amazon RDS separada do aplicativo web.
 
 A solução é a seguinte:
 
 1. Na barra de pesquisa, na parte superior do console de gerenciamento da AWS, pesquise e selecione `VPC`
 
-2. Crie uma sub-rede *privada* na CapstoneVPC:
+2. Crie uma sub-rede *privada* na TaskVPC:
    - No painel de navegação, selecione **Sub-redes**.
    - Selecione **Criar sub-rede**.
-   - **ID da VPC:** selecione **CapstoneVPC**.
+   - **ID da VPC:** selecione **TaskVPC**.
    - **Nome da sub-rede:** insira `Private Subnet 1`
    - **Zona de Disponibilidade:** escolha a mesma Zona de Disponibilidade usada na instância do EC2.
    - **IPv4 CIDR block** (Bloco CIDR IPv4): insira `10.0.2.0/24`
    - Selecione **Criar sub-rede**.
 
-Agora, os alunos precisarão criar uma tabela de rota personalizada. Eles associarão novas sub-redes à nova tabela de rota para tornar as sub-redes privadas e acessíveis apenas dentro da VPC.
+Agora, os cursistas precisarão criar uma tabela de rota personalizada. Eles associarão novas sub-redes à nova tabela de rota para tornar as sub-redes privadas e acessíveis apenas dentro da VPC.
 
 2. Criar uma tabela de rota:
    - No painel de navegação, selecione **Tabelas de rotas**.
    - Clique em **Criar tabela de rotas**.
-   - **Nome:** insira `CapstonePrivateRT`
-   - **VPC:** clique em **CapstoneVPC**.
+   - **Nome:** insira `TaskPrivateRT`
+   - **VPC:** clique em **TaskVPC**.
    - Clique em **Criar tabela de rotas**.
    - Na guia **Rotas**, confirme se *apenas uma* rota está listada e que as configurações são as seguintes:
      - **Destino** é **10.0.0.0/16**.
      - **Alvo** é **local**.
 
-Agora, os alunos precisarão criar outra sub-rede *privada* para oferecer suporte ao novo banco de dados.
+Agora, os cursistas precisarão criar outra sub-rede *privada* para oferecer suporte ao novo banco de dados.
 
-3. Crie outra sub-rede *privada* na CapstoneVPC:
+3. Crie outra sub-rede *privada* na TaskVPC:
    - No painel de navegação, selecione **Sub-redes**.
    - Selecione **Criar sub-rede**.
-   - **ID da VPC:** selecione **CapstoneVPC**
+   - **ID da VPC:** selecione **TaskVPC**
    - **Nome da sub-rede:** insira `Private Subnet 2`
-   - **Zona de Disponibilidade:** selecione uma Zona de Disponibilidade *diferente* de onde estão a sub-rede pública 1 e a instância da CapstonePOC.
+   - **Zona de Disponibilidade:** selecione uma Zona de Disponibilidade *diferente* de onde estão a sub-rede pública 1 e a instância da TaskPOC.
    - **IPv4 CIDR block** (Bloco CIDR IPv4): insira `10.0.4.0/24`
    - Selecione **Criar sub-rede**.
 
@@ -425,9 +348,9 @@ Agora, os alunos precisarão criar outra sub-rede *privada* para oferecer suport
    - Na lista de sub-redes, selecione o link **ID da sub-rede** para a sub-rede privada 2.
    - Clique na guia **Tabela de rotas**.
    - Selecione **Editar associação da tabela de rotas**.
-   - Em **ID da tabela de rotas**, clique em **CapstonePrivateRT**.
+   - Em **ID da tabela de rotas**, clique em **TaskPrivateRT**.
    - Selecione **Salvar**.
-   - Repita essas etapas para associar o CapstonePrivateRT à sub-rede privada 1.
+   - Repita essas etapas para associar o TaskPrivateRT à sub-rede privada 1.
 
 A VPC e a rede agora estão reconfiguradas com sub-redes privadas em duas Zonas de Disponibilidade para hospedar o banco de dados do Amazon RDS.
 
@@ -437,7 +360,7 @@ A VPC e a rede agora estão reconfiguradas com sub-redes privadas em duas Zonas 
 
 #### Tarefa 2: criar e configurar o banco de dados do Amazon RDS
 
-Nesta tarefa, os alunos configurarão o banco de dados do Amazon RDS e criarão um grupo de segurança (firewall) para ele.
+Nesta tarefa, os cursistas configurarão o banco de dados do Amazon RDS e criarão um grupo de segurança (firewall) para ele.
 
 A solução é a seguinte:
 
@@ -445,9 +368,9 @@ A solução é a seguinte:
    - Na barra de pesquisa, na parte superior do console de gerenciamento da AWS, pesquise e selecione `EC2`
    - No painel de navegação, selecione **Grupos de segurança**.
    - Selecione **Criar grupo de segurança** e faça a seguinte configuração:
-     - **Nome do grupo de segurança**: insira `CapstoneDBSG`
+     - **Nome do grupo de segurança**: insira `TaskDBSG`
      - **Descrição:** insira `Security group for database`
-     - **VPC:** comece a digitar `CapstoneVPC` e selecione-a quando aparecer.
+     - **VPC:** comece a digitar `TaskVPC` e selecione-a quando aparecer.
      - Na seção **Regras de entrada**, selecione **Adicionar regra** e configure as opções a seguir:
        - **Tipo:** selecione **MYSQL/Aurora**.
        - **Origem:** insira `10.0.0.0/16` no campo à direita de **Personalizado**.
@@ -461,19 +384,19 @@ A solução é a seguinte:
      - **Versão do mecanismo**: mantenha o padrão.
    - Na seção **Modelos**, selecione **Nível gratuito**.
    - Na seção **Configurações**, configure o seguinte:
-     - **Identificador da instância de banco de dados:** insira `CapstoneDB`
-     - **Nome do usuário mestre:** insira `nodeapp`
-     - **Master password** (Senha principal): insira `student12` e digite a mesma coisa no próximo campo para confirmar a senha.
+     - **Identificador da instância de banco de dados:** insira `TaskDB`
+     - **Nome do usuário mestre:** insira `taskapp`
+     - **Master password** (Senha principal): insira `task-123` e digite a mesma coisa no próximo campo para confirmar a senha.
    - Na seção **Configuração da instância**, em **Classe da instância do banco de dados**, mantenha o padrão de **db.t3.micro**.
    - Na seção **Armazenamento**, em **Armazenamento alocado**, insira `20` GiB.
    - Na seção **Conectividade**, configure o seguinte:
-     - **Nuvem privada virtual (VPC):** selecione **CapstoneVPC**.
+     - **Nuvem privada virtual (VPC):** selecione **TaskVPC**.
      - **Acesso público:** selecione **Não**.
      - **Grupo de segurança da VPC:** deixe marcado **Escolher existente**.
-     - **Grupos de segurança da VPC existentes:** remova o grupo **padrão**. *Adicione* o grupo **CapstoneDBSG**.
+     - **Grupos de segurança da VPC existentes:** remova o grupo **padrão**. *Adicione* o grupo **TaskDBSG**.
      - **Zona de Disponibilidade:** da lista suspensa, escolha a primeira Zona de Disponibilidade.
    - Na seção **Monitoramento**, desmarque **Habilitar monitoramento avançado**, caso esteja selecionado.
-   - Expanda a seção **Configuração adicional** e, em **Nome do banco de dados inicial**, digite `STUDENTS`
+   - Expanda a seção **Configuração adicional** e, em **Nome do banco de dados inicial**, digite `taskdb`
    
    > 📝 **Observação:** mantenha todos os outros valores como padrão. Você pode modificar alguns dos parâmetros, conforme necessário, após a criação do banco de dados.
    
@@ -482,7 +405,7 @@ A solução é a seguinte:
 > ⚠️ **Importante:** antes de ir para a próxima etapa, confirme que o status do banco de dados é *Available* (Disponível). Isso levará alguns minutos.
 
 3. Quando o banco de dados estiver disponível, encontre e registre o endpoint do banco de dados do RDS:
-   - Da lista do banco de dados, selecione o link **Identificador do banco de dados** para **capstonedb**.
+   - Da lista do banco de dados, selecione o link **Identificador do banco de dados** para **Taskdb**.
    - Na guia **Segurança e conexão**, em **Endpoint e porta**, registre o valor do **Endpoint** para uso posterior.
 
 **Referência**
@@ -491,26 +414,26 @@ A solução é a seguinte:
 
 #### Tarefa 3: configurar o ambiente de desenvolvimento
 
-Nesta tarefa, os alunos criam um ambiente de desenvolvimento do AWS Cloud9 para realizar operações da AWS Command Line Interface (AWS CLI).
+Nesta tarefa, os cursistas criam um ambiente de desenvolvimento do AWS Cloud9 para realizar operações da AWS Command Line Interface (AWS CLI).
 
 A solução é a seguinte:
 
 1. Na barra de pesquisa, na parte superior do console de gerenciamento da AWS, pesquise e selecione `Cloud9`
 
 2. Selecione **Criar ambiente** e configure o seguinte:
-   - **Nome:** insira `CapstoneIDE`
+   - **Nome:** insira `TaskIDE`
    - **Tipo de ambiente:** selecione **New EC2 instance** (Nova instância do EC2).
    - **Tipo de instância:** selecione **t2.micro**.
    - Na seção **Configurações de rede**, em **Conexão**, selecione **Secure Shell (SSH)**.
    - Expanda a seção **Configurações da VPC** e defina as seguintes configurações:
-     - **Amazon Virtual Private Cloud (VPC):** selecione **CapstoneVPC**.
+     - **Amazon Virtual Private Cloud (VPC):** selecione **TaskVPC**.
      - **Sub-rede:** selecione **Public Subnet 1** (Sub-rede pública 1).
    - Mantenha todas as configurações padrão.
    - Selecione **Criar**.
 
 > ⚠️ **Importante:** antes de ir para a próxima tarefa, espere até que o ambiente do AWS Cloud9 seja criado. Isso levará alguns minutos.
 
-Os alunos devem usar esse ambiente de desenvolvimento do AWS Cloud9 para realizar tarefas que requerem a execução de comandos da AWS CLI.
+Os cursistas devem usar esse ambiente de desenvolvimento do AWS Cloud9 para realizar tarefas que requerem a execução de comandos da AWS CLI.
 
 **Referência**
 
@@ -518,26 +441,26 @@ Os alunos devem usar esse ambiente de desenvolvimento do AWS Cloud9 para realiza
 
 #### Tarefa 4: provisionar o Secrets Manager
 
-Nesta tarefa, os alunos provisionarão segredos no AWS Secrets Manager para armazenar credenciais do banco de dados. O aplicativo web usará essas credenciais para se comunicar com a instância do banco de dados do RDS.
+Nesta tarefa, os cursistas provisionarão segredos no AWS Secrets Manager para armazenar credenciais do banco de dados. O aplicativo web usará essas credenciais para se comunicar com a instância do banco de dados do RDS.
 
 A solução é a seguinte:
 
-1. No console do AWS Cloud9, abra o ambiente CapstoneIDE.
+1. No console do AWS Cloud9, abra o ambiente TaskIDE.
 
-2. No terminal, para criar segredos, execute o comando a seguir. Substitua *<rds-endpoint>* pelo endpoint do banco de dados CapstoneDB RDS:
+2. No terminal, para criar segredos, execute o comando a seguir. Substitua *<rds-endpoint>* pelo endpoint do banco de dados TaskDB RDS:
 
 > ⚠️ **Importante:** use os mesmos nomes de recurso fornecidos nas instruções. Não os modifique.
 
-> 📝 **Observação:** se o comando parecer estar quebrado, tente copiar o comando de *Script-1* do arquivo [AWS Cloud9 Scripts](https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCAP1-1-DEV/1-lab-capstone-project-1/s3/cloud9-scripts.yml).
+> 📝 **Observação:** se o comando parecer estar quebrado, tente copiar o comando de *Script-1* do arquivo [AWS Cloud9 Scripts](https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCAP1-1-DEV/1-lab-Task-project-1/s3/cloud9-scripts.yml).
 
 ```bash
-#Replace <rds-endpoint> with the endpoint from the RDS database (CapstoneDB)
-#Only replace the values mentioned and keep others 'as is'
+#Substitua <rds-endpoint> pelo endpoint do banco de dados (TaskDB)
+# Deixe os demais itens com os valores que estão atualmente.
 
 aws secretsmanager create-secret \
     --name Mydbsecret \
     --description "Database secret for web app" \
-    --secret-string "{\"user\":\"nodeapp\",\"password\":\"student12\",\"host\":\"<rds-endpoint>\",\"db\":\"STUDENTS\"}"
+    --secret-string "{\"user\":\"taskapp\",\"password\":\"task-123\",\"host\":\"<rds-endpoint>\",\"db\":\"taskdb\"}"
 ```
 
 > 📝 **Observação:**
@@ -550,29 +473,29 @@ aws secretsmanager create-secret \
 
 #### Tarefa 5: provisionar uma nova instância para o servidor web
 
-Nesta tarefa, os alunos provisionarão uma nova instância do EC2 na sub-rede *pública* e instalarão o aplicativo web.
+Nesta tarefa, os cursistas provisionarão uma nova instância do EC2 na sub-rede *pública* e instalarão o aplicativo web.
 
 A solução é a seguinte:
 
 1. Na barra de pesquisa, na parte superior do console de gerenciamento da AWS, pesquise e selecione `EC2`
 
 2. Clique em **Executar instância** > **Executar instância** e configure o seguinte:
-   - Na seção **Nome e tags**, em **Nome**, insira `CapstoneAppServer`
+   - Na seção **Nome e tags**, em **Nome**, insira `TaskAppServer`
    - Na seção **Application and OS Images (Imagens do aplicativo e do sistema operacional)**, em **Quick Start (Início rápido)**, selecione **Ubuntu**.
    - Na seção **Tipo de instância**, em **Tipo de instância**, selecione **t2.micro**.
    - Na seção **Par de chaves**, em **Nome de par de chaves**, insira **vockey**.
    - Na seção **Configurações de rede**, configure o seguinte:
      - Clique em **Editar**.
-     - **VPC:** clique em **CapstoneVPC**.
+     - **VPC:** clique em **TaskVPC**.
      - **Sub-rede:** selecione **Public Subnet 1** (Sub-rede pública 1).
      - **Atribuir IP público automaticamente:** selecione **Habilitar**.
      - **Firewall (grupo de segurança):** selecione **Selecionar grupo de segurança existente**.
-     - **Common security groups** (Grupos de segurança comuns): selecione **CapstoneAPPSG**.
+     - **Common security groups** (Grupos de segurança comuns): selecione **TaskAPPSG**.
    - Expanda a seção **Detalhes avançados** e configure o seguinte:
      - **Perfil de instância do IAM:** selecione **LabInstanceProfile**.
      - **Dados do usuário:** copie e cole o seguinte código:
      
-     > 💡 **Dica:** o código dos dados do usuário também está disponível no arquivo [Código de solução para o servidor do aplicativo](https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCAP1-1-DEV/1-lab-capstone-project-1/s3/UserdataScript-phase-3.sh).
+     > 💡 **Dica:** o código dos dados do usuário também está disponível no arquivo [deploy.sh](https://github.com/andrealmeidaa/minicurso-wtads/blob/deploy_aws_rds/task_project/deploy.sh).
 
 ```bash
 #!/bin/bash -xe
@@ -642,7 +565,7 @@ AWS_SECRET_NAME=$AWS_SECRET_NAME
 # Fallback database config (usado apenas se AWS Secrets falhar)
 DB_NAME=taskdb
 DB_USER=taskapp
-DB_PASSWORD=task@123
+DB_PASSWORD=task-123
 DB_HOST=localhost
 DB_PORT=3306
 EOF
@@ -735,69 +658,22 @@ fi
 
    **Dica:** use http (em vez de https) ao acessar o aplicativo web no navegador.
 
-   **Observação:** se os alunos encontrarem problemas para acessar o aplicativo, veja se o segredo está configurado corretamente, conforme ensinado em uma etapa anterior.
+   **Observação:** se os cursistas encontrarem problemas para acessar o aplicativo, veja se o segredo está configurado corretamente, conforme ensinado em uma etapa anterior.
 
 **Referência**
 
 - Laboratório Princípios da nuvem na AWS Academy: criar um servidor de banco de dados e interagir com o banco de dados usando um aplicativo
 
-#### Tarefa 6: migrar o banco de dados
 
-Nesta tarefa, os alunos migrarão os dados armazenados no banco de dados do MySQL na instância do EC2 original para o novo banco de dados do RDS.
+#### Tarefa 6: testar o aplicativo
 
-A solução é a seguinte:
+Nesta tarefa, os cursistas acessarão o aplicativo e realizarão algumas tarefas para testá-lo, como fizeram anteriormente. O aplicativo deve funcionar da mesma forma que antes.
 
-1. Abra o IDE do AWS Cloud9.
+Nesta fase, os cursistas implementaram o desacoplamento separando o aplicativo web do banco de dados. Os cursistas também melhoraram o procedimento de segurança colocando os servidores em sub-redes separadas e armazenando as credenciais de acesso ao banco de dados no Secrets Manager em vez de fazer hardcoding dentro do aplicativo web.
 
-2. Exporte os dados do banco de dados na instância original do EC2:
-   - Execute o comando a seguir. Substitua *<EC2instancePrivateip>* pelo endereço IPv4 privado da instância *CapstonePOC*:
+### Fase 3: implementar alta disponibilidade e dimensionamento
 
-```sql
-mysqldump -h <EC2instancePrivateip> -u nodeapp -p --databases STUDENTS > data.sql
-```
-
-   - Ao ser solicitado, forneça a senha `student12`
-   
-   > 📝 **Observação:** a senha para o banco de dados foi configurada no script de dados do usuário que foi usado para criar a instância do EC2 em uma tarefa anterior.
-
-3. Importe os dados exportados para o banco de dados do RDS:
-   - Execute o comando a seguir. Substitua *<RDSEndpoint>* pelo endpoint do banco de dados CapstoneDB RDS:
-
-```sql
-mysql -h <RDSEndpoint> -u nodeapp -p  STUDENTS < data.sql
-```
-
-   - Ao ser solicitado, forneça a senha para o banco de dados CapstoneDB RDS. A senha foi configurada quando a instância do RDS DB foi criada.
-
-4. **Etapa opcional:** se um aluno usou a mesma instância do EC2 para hospedar o código do aplicativo web, ele poderá desativar o banco de dados antigo usando os seguintes passos. Outra alternativa é o aluno parar a instância CapstonePOC:
-   - Conecte-se à instância do EC2 *CapstonePOC* usando o EC2 Instance Connect.
-   - Execute o seguinte script:
-
-```sql
-#Run this on the CapstonePOC instance
-
-sudo systemctl stop mysql
-
-sudo apt-get purge mysql-server mysql-common mysql-server-core-* mysql-client-core-*
-
-sudo rm -rf /etc/mysql /var/lib/mysql
-```
-
-> 💡 **Dica:** após a migração dos dados do banco de dados na instância CapstonePOC, você pode parar essa instância.
-
-**Referência:**
-
-- Laboratório Arquitetura na nuvem na AWS Academy: migrar um banco de dados para o Amazon RDS
-
-#### Tarefa 7: testar o aplicativo
-
-Nesta tarefa, os alunos acessarão o aplicativo e realizarão algumas tarefas para testá-lo, como fizeram anteriormente. O aplicativo deve funcionar da mesma forma que antes.
-
-Nesta fase, os alunos implementaram o desacoplamento separando o aplicativo web do banco de dados. Os alunos também melhoraram o procedimento de segurança colocando os servidores em sub-redes separadas e armazenando as credenciais de acesso ao banco de dados no Secrets Manager em vez de fazer hardcoding dentro do aplicativo web.
-
-### Fase 4: implementar alta disponibilidade e dimensionamento
-
-Após a implementação do desacoplamento, os alunos precisarão tornar o aplicativo altamente disponível e dimensionável. Para isso, eles precisarão usar os serviços de balanceamento de carga e auto scaling.
+Após a implementação do desacoplamento, os cursistas precisarão tornar o aplicativo altamente disponível e dimensionável. Para isso, eles precisarão usar os serviços de balanceamento de carga e auto scaling.
 
 O diagrama a seguir mostra a arquitetura final com todos os componentes e serviços integrados para alcançar o objetivo.
 
@@ -805,16 +681,16 @@ O diagrama a seguir mostra a arquitetura final com todos os componentes e servi�
 
 #### Tarefa 1: criar um Application Load Balancer
 
-Nesta tarefa, os alunos ajustarão a configuração de rede para adicionar uma nova sub-rede pública e criar um Application Load Balancer para distribuir o tráfego do aplicativo entre duas Zonas de Disponibilidade.
+Nesta tarefa, os cursistas ajustarão a configuração de rede para adicionar uma nova sub-rede pública e criar um Application Load Balancer para distribuir o tráfego do aplicativo entre duas Zonas de Disponibilidade.
 
 A solução é a seguinte:
 
 1. Na barra de pesquisa, na parte superior do console de gerenciamento da AWS, pesquise e selecione `VPC`
 
-2. Crie uma sub-rede *pública* na CapstoneVPC:
+2. Crie uma sub-rede *pública* na TaskVPC:
    - No painel de navegação, selecione **Sub-redes**.
    - Selecione **Criar sub-rede**.
-   - **ID da VPC:** selecione **CapstoneVPC**.
+   - **ID da VPC:** selecione **TaskVPC**.
    - **Nome da sub-rede:** insira `Public Subnet 2`
    - **Zona de Disponibilidade:** escolha a mesma Zona de Disponibilidade na qual a *Sub-rede privada 2* foi criada.
    - **IPv4 CIDR block** (Bloco CIDR IPv4): Insira `10.0.3.0/24`
@@ -828,7 +704,7 @@ A solução é a seguinte:
    - Na seção **Configurações de atribuição automática de IP**, selecione **Enable auto-assign public IPv4 address** (Ativar a atribuição de endereço IPv4 público automaticamente).
    - Selecione **Salvar**.
 
-4. Na tabela de rotas principal da CapstoneVPC, confirme a associação da sub-rede pública 2 à tabela de rota.
+4. Na tabela de rotas principal da TaskVPC, confirme a associação da sub-rede pública 2 à tabela de rota.
    - Selecione **Public Subnet 2** (Sub-rede pública 2).
    - Selecione **Tabela de rotas** no painel abaixo.
    - Confirme a existência de duas rotas na tabela de rotas
@@ -843,28 +719,28 @@ A solução é a seguinte:
 
 5. Selecione **Criar balanceador de carga** e configure o seguinte:
    - Na seção **Tipos de balanceador de carga**, para **Application Load Balancer**, escolha a opção **Criar**.
-   - Na seção **Configuração básica**, em **Nome do balanceador de carga**, insira `CapstoneALB`
+   - Na seção **Configuração básica**, em **Nome do balanceador de carga**, insira `TaskALB`
    - Na seção **Mapeamento de rede**, configure o seguinte:
-     - **VPC:** clique em **CapstoneVPC**.
+     - **VPC:** clique em **TaskVPC**.
      - **Mapeamentos:** selecione as duas Zonas de Disponibilidade. O menu suspenso **Sub-rede** aparece quando uma Zona de Disponibilidade é selecionada.
      - **Sub-rede:** para cada Zona de Disponibilidade, selecione a sub-rede pública.
    - Na seção **Grupos de segurança**, configure o seguinte:
      - Remova o grupo de segurança **padrão**.
-     - Adicione o grupo de segurança **CapstoneAPPSG**.
+     - Adicione o grupo de segurança **TaskAPPSG**.
    - Na seção **Listeners e roteamento**, selecione **Criar grupo de destino**, localizado abaixo do campo **Ação padrão**. Uma nova guia ou janela se abre.
    - Na nova guia ou janela, configure o seguinte:
      - **Escolha um tipo de destino:** selecione **Instâncias**.
-     - **Nome do grupo de destino:** insira `CapstoneTG`
-     - **VPC:** clique em **CapstoneVPC**.
+     - **Nome do grupo de destino:** insira `TaskTG`
+     - **VPC:** clique em **TaskVPC**.
      - Mantenha todas as configurações padrão e clique em **Próximo**.
      - Na parte inferior da página, selecione **Criar grupo de destino**.
      - Volte para a guia ou janela em que você começou a criar o balanceador de carga.
-   - Na seção **Listeners e roteamento**, selecione o ícone de atualizar e clique em **CapstoneTG** para **Ação padrão**.
+   - Na seção **Listeners e roteamento**, selecione o ícone de atualizar e clique em **TaskTG** para **Ação padrão**.
    - Selecione **Criar balanceador de carga**.
    - Selecione **Ver balanceador de carga**.
    - Registre o **Nome do DNS** para o balanceador de carga. Esse nome será usado como um endpoint para acessar o site posteriormente.
    
-   > 📝 **Observação:** o Application Load Balancer foi criado sem destinos. Os alunos adicionarão os destinos na próxima tarefa, quando implementarem o auto scaling.
+   > 📝 **Observação:** o Application Load Balancer foi criado sem destinos. Os cursistas adicionarão os destinos na próxima tarefa, quando implementarem o auto scaling.
 
 **Referência**
 
@@ -872,15 +748,15 @@ A solução é a seguinte:
 
 #### Tarefa 2: implementar o Amazon EC2 Auto Scaling
 
-Nesta tarefa, os alunos criarão uma configuração de execução e um grupo do Auto Scaling para fornecer dimensionamento para o aplicativo.
+Nesta tarefa, os cursistas criarão uma configuração de execução e um grupo do Auto Scaling para fornecer dimensionamento para o aplicativo.
 
 A solução é a seguinte:
 
 1. Crie uma imagem de máquina da Amazon (AMI) da instância do EC2 que hospeda o aplicativo web e use-a para criar a configuração de execução para o auto scaling:
    - No painel de navegação, selecione **Instâncias**.
-   - Na lista de instâncias, selecione a instância **CapstoneAppServer**.
+   - Na lista de instâncias, selecione a instância **TaskAppServer**.
    - Selecione **Ações** > **Imagem e modelos** > **Criar imagem**.
-   - Em **Nome da imagem**, insira `CapstoneAMI`
+   - Em **Nome da imagem**, insira `TaskAMI`
    - Clique em **Criar imagem**.
    - No banner exibido na parte superior da página, clique no link do nome da AMI. Uma nova guia ou janela se abre e exibe uma lista de AMIs.
 
@@ -890,28 +766,28 @@ A solução é a seguinte:
    - No painel de navegação à esquerda, abaixo de **Instâncias**, selecione **Modelos de execução**.
    - Clique em **Criar modelo de execução**.
    - Na seção **Nome e descrição do modelo de execução**, configure:
-     - **Nome do modelo de execução:** insira `CapstoneTemplate`
-     - **Template version description** (Descrição da versão do modelo) `Web server for Students application` (Servidor web para aplicativo dos alunos)
+     - **Nome do modelo de execução:** insira `TaskTemplate`
+     - **Template version description** (Descrição da versão do modelo) `Web server for Task application` (Servidor web para aplicativo Task)
      - **Orientação sobre o Auto Scaling:** selecione **Provide guidance to help me set up a template that I can use with EC2 Auto Scaling** (Fornecer orientação para me ajudar a configurar um modelo que eu possa usar com o EC2 Auto Scaling).
-   - Na seção **Application and OS Images** (Imagens do aplicativo e do sistema operacional), selecione **Minhas AMIs**. Observe que CapstoneAMI já está selecionada.
+   - Na seção **Application and OS Images** (Imagens do aplicativo e do sistema operacional), selecione **Minhas AMIs**. Observe que TaskAMI já está selecionada.
    - Na seção **Tipo de instância**, em **Tipo de instância**, selecione **t3.micro**.
    - Na seção **Par de chaves**, selecione **vockey**.
-   - Na seção **Configurações de rede**, para **Grupos de segurança**, selecione **CapstoneAPPSG**.
+   - Na seção **Configurações de rede**, para **Grupos de segurança**, selecione **TaskAPPSG**.
    - Expanda a seção **Detalhes avançados**.
    - Em **Perfil de instância do IAM**, selecione **LabInstanceProfile**.
    - Clique em **Criar modelo de execução**.
    - Selecione **Visualizar modelos de execução**
 
 3. Crie um grupo do Auto Scaling:
-   - Selecione **CapstoneTemplate** (Modelo de Capston) e clique em **Ações** > **Criar grupo do Auto Scaling**.
+   - Selecione **TaskTemplate** (Modelo de Capston) e clique em **Ações** > **Criar grupo do Auto Scaling**.
    - Defina as seguintes configurações:
-     - **Auto Scaling group name:** (Nome do grupo do Auto Scaling): insira `CapstoneAutoScalingGroup`
+     - **Auto Scaling group name:** (Nome do grupo do Auto Scaling): insira `TaskAutoScalingGroup`
      - Selecione **Próximo**.
-     - **VPC:** clique em **CapstoneVPC**.
+     - **VPC:** clique em **TaskVPC**.
      - **Zonas de Disponibilidade e sub-redes:** selecione as duas Zonas de Disponibilidade que incluem as sub-redes públicas.
      - Selecione **Próximo**.
      - Na seção **Balanceamento de carga**, selecione **Anexar a um balanceador de carga existente**.
-     - **Grupos de destino de balanceador de carga existentes:** selecione **CapstoneTG**.
+     - **Grupos de destino de balanceador de carga existentes:** selecione **TaskTG**.
      - Na seção **Health checks**, em **Health check type** (Tipo de health check), selecione **ELB**.
      - Selecione **Próximo**.
      - Na seção **Group Size** (Tamanho do grupo), configure:
@@ -932,7 +808,7 @@ A solução é a seguinte:
      
      Após alguns minutos, o grupo do Auto Scaling criará uma instância do EC2 para atender ao mínimo especificado na política de scaling. A nova instância pode ser visualizada no console do Amazon EC2.
      
-     > 📝 **Observação:** um aluno pode definir o **valor de destino** em um valor menor se quiserem que o auto scaling ocorra mais rapidamente durante o teste de carga.
+     > 📝 **Observação:** um cursista pode definir o **valor de destino** em um valor menor se quiserem que o auto scaling ocorra mais rapidamente durante o teste de carga.
 
 **Referência**
 
@@ -940,14 +816,14 @@ A solução é a seguinte:
 
 #### Tarefa 3: acessar o aplicativo
 
-Nesta tarefa, os alunos acessarão o aplicativo usando o URL do balanceador de carga. Depois, testarão a funcionalidade do aplicativo.
+Nesta tarefa, os cursistas acessarão o aplicativo usando o URL do balanceador de carga. Depois, testarão a funcionalidade do aplicativo.
 
 1. Use o nome DNS do balanceador de carga para acessar o aplicativo web.
 2. Teste a funcionalidade do aplicativo.
 
 #### Tarefa 4: Testar o aplicativo com carga
 
-Nesta tarefa, os alunos instalarão pacotes de nó e realizarão testes de carga no aplicativo no ambiente AWS Cloud9.
+Nesta tarefa, os cursistas instalarão pacotes de nó e realizarão testes de carga no aplicativo no ambiente AWS Cloud9.
 
 A solução é a seguinte:
 
@@ -977,16 +853,16 @@ loadtest --rps 2000 -c 1000 -k http://<LoadBalancerDNS>
 4. Após observar o scaling por um tempo, interrompa o script.
 5. Observe que o número de instâncias diminui para o mínimo após algum tempo.
 
-**Observação:** os alunos também podem monitorar a ação de auto scaling na área de Grupos do Auto Scaling do console do Amazon EC2:
+**Observação:** os cursistas também podem monitorar a ação de auto scaling na área de Grupos do Auto Scaling do console do Amazon EC2:
 
 - No painel de navegação, selecione **Grupos do Auto Scaling**.
-- Selecione o link **Nome** do CapstoneAutoScalingGroup.
+- Selecione o link **Nome** do TaskAutoScalingGroup.
 - Selecione a guia **Monitoramento**.
 - Selecione **1h** para alterar a duração para uma hora.
 
 **Observação:** as métricas do cloudwatch exibidas na guia de monitoramento começam a mostrar dados após alguns minutos.
 
-Os alunos agora implementaram um aplicativo altamente disponível e dimensionável, que também é seguro, econômico e de alto desempenho.
+Os cursistas agora implementaram um aplicativo altamente disponível e dimensionável, que também é seguro, econômico e de alto desempenho.
 
 **Referência**
 
@@ -1020,29 +896,5 @@ Use os cenários a seguir para ter auxílio ao solucionar um problema quando os 
   - Se você não vir seu ambiente do Cloud9, verifique se você está na mesma região em que o criou inicialmente.
   - Reinicie a instância do EC2 que corresponde ao ambiente do AWS Cloud9 conforme necessário.
 
-## Modelo da apresentação da demonstração
 
-O modelo de apresentação dos projetos de laboratório da Academy está disponível para uso dos alunos em seus próprios projetos. Eles também podem usar a apresentação como portfólio de trabalho para demonstrar suas habilidades com a nuvem.
-
-A apresentação contém as seguintes seções: O tempo sugerido é para uma apresentação de 15 minutos:
-
-- Introdução: 30 segundos
-- Visão geral do cenário de negócios: 1 minuto
-- Visão geral da solução: 5 minutos
-- Diagrama da arquitetura da solução: 2 minutos
-- Demonstração: 5 minutos
-- Lições aprendidas: 1 minuto e 30 segundos
-
-O tempo total pode variar dependendo da atividade a ser conduzida. Por exemplo, você pode desejar que os alunos forneçam um passo a passo de alto nível de suas soluções finais em vez de uma análise detalhada do motivo ou de como escolheram determinados serviços e as etapas de criação de suas arquiteturas.
-
-## Rubrica de avaliação
-
-Use a rubrica como quiser. Veja algumas sugestões a seguir:
-
-- Peça que os alunos apresentem suas soluções em aula e use a rubrica para avaliar as apresentações.
-- Compartilhe a rubrica with os alunos antecipadamente para que possam se concentrar na explicação e na demonstração de como suas soluções atendam aos critérios.
-- Compartilhe a rubrica com os alunos e incentive-os a fazer uma autoavaliação ou fornecer um comentário de pares antes da sua avaliação.
-- É possível atribuir uma escala numérica a cada nível, por exemplo, insatisfatório (0), precisa de melhorias (1 a 2), bom (3 a 4), excelente (5).
-- Dependendo dos serviços e das habilidades que você quiser destacar em aula, você também pode atribuir peso numérico de acordo com cada critério, por exemplo, funcionalidade (20%), carga balanceada (15%), dimensionável (15%), altamente disponível (15%), seguro (25%), econômico (5%) e de alto desempenho (5%).
-
-© 2023, Amazon Web Services, Inc. ou suas afiliadas. Todos os direitos reservados.
+© 2023, Amazon Web Services, Inc. ou suas afiliadas. Todos os direitos reservados. Adaptador por André Almeida em 2025.
